@@ -36,4 +36,12 @@ public class Cell {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        String coordinate = String.format("(%d, %d)", x, y);
+        if(coin == null) return " ";
+        if(coin.color.equals(Color.WHITE)) return "W";
+        return "B";
+    }
 }

@@ -15,5 +15,13 @@ public class Coin {
         return color;
     }
 
-    void flip(){}
+    public void flip(){
+        if (color.equals(Color.BLACK)) color = Color.WHITE;
+        else color = Color.BLACK;
+    }
+
+    @Override
+    public String toString() {
+        return color.toString();
+    }
 }

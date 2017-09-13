@@ -1,9 +1,6 @@
 package logic;
 
-import entity.Board;
-import entity.Cell;
-import entity.Color;
-import entity.PlayerStatus;
+import entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +30,11 @@ public class CellLogic {
     private boolean matchingLogic(List<Cell> resultCell, List<Cell> flippableCell, int x, int y, Board board){
         //same color
         Color currentTurn = PlayerStatus.getInstance().getTurn();
-        Color color = board.getCell(x, y).getCoin().getColor();
-        if(color == null){
-            resultCell.clear();
+        Coin coin = board.getCell(x, y).getCoin();
+        if(coin == null){
+            flippableCell.clear();
             return true;
-        }else if (!color.equals(currentTurn)){
+        }else if (!coin.getColor().equals(currentTurn)){
             flippableCell.add(board.getCell(x,y));
             return false;
         }else{
@@ -54,12 +51,12 @@ public class CellLogic {
         //checking right
         List<Cell> resultCell = new ArrayList<>();
         List<Cell> flippableCell = new ArrayList<>();
-        for (int i = cell.getX(); i < board.getNCOLS(); i++) {
-            if (matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
+        for (int i = cell.getX()+1; i < board.getNCOLS(); i++) {
+            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
         }
         //checking left
-        for (int i = cell.getX(); i >= 0; i--) {
-            if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
+        for (int i = cell.getX()-1; i >= 0; i--) {
+            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
         }
         return resultCell;
     }
@@ -72,12 +69,12 @@ public class CellLogic {
         List<Cell> resultCell = new ArrayList<>();
         List<Cell> flippableCell = new ArrayList<>();
         //checking up
-        for (int i = cell.getY(); i < board.getNROWS(); i++) {
-            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
+        for (int i = cell.getY()+1; i < board.getNROWS(); i++) {
+            if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
         }
         //checking down
-        for (int i = cell.getY(); i >= 0; i--) {
-            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
+        for (int i = cell.getY()-1; i >= 0; i--) {
+            if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
         }
         return resultCell;
     }
@@ -90,35 +87,35 @@ public class CellLogic {
         List<Cell> resultCell = new ArrayList<>();
         List<Cell> flippableCell = new ArrayList<>();
         //checking diag left up
-        int curX = cell.getX();
-        int curY = cell.getY();
-        while (curX >= 0 && curY < board.getNROWS()) {
-            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
-            curX--;
-            curY++;
-        }
-        //check diag right down
-        curX = cell.getX();
-        curY = cell.getY();
-        while (curX < board.getNCOLS() && curY >= 0) {
-            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
-            curX++;
-            curY--;
-        }
-        //checking diag left down
-        curX = cell.getX();
-        curY = cell.getY();
+        int curX = cell.getX() - 1;
+        int curY = cell.getY() - 1;
         while (curX >= 0 && curY >= 0) {
             if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
             curX--;
             curY--;
         }
-        //checking diag right up
-        curX = cell.getX();
-        curY = cell.getY();
+        //check diag right down
+        curX = cell.getX() + 1;
+        curY = cell.getY() + 1;
         while (curX < board.getNCOLS() && curY < board.getNROWS()) {
             if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
             curX++;
+            curY++;
+        }
+        //checking diag left down
+        curX = cell.getX() - 1;
+        curY = cell.getY() + 1;
+        while (curX >= 0 && curY < board.getNROWS()) {
+            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
+            curX--;
+            curY++;
+        }
+        //checking diag right up
+        curX = cell.getX() - 1;
+        curY = cell.getY() + 1;
+        while (curX >= 0 && curY < board.getNROWS()) {
+            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
+            curX--;
             curY++;
         }
 
