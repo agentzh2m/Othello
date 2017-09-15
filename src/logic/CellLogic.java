@@ -39,6 +39,7 @@ public class CellLogic {
             return false;
         }else{
             resultCell.addAll(flippableCell);
+            flippableCell.clear();
             return true;
         }
     }
