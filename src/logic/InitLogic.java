@@ -1,9 +1,9 @@
 package logic;
 
-import entity.Board;
-import entity.Cell;
-import entity.Coin;
-import entity.Color;
+import logic.entity.Board;
+import logic.entity.Cell;
+import logic.entity.Coin;
+import logic.entity.Color;
 
 public class InitLogic {
     private final int CENTER_X = 3;

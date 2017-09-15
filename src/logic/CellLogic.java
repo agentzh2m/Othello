@@ -1,6 +1,6 @@
 package logic;
 
-import entity.*;
+import logic.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;

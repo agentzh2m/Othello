@@ -1,4 +1,4 @@
-package entity;
+package logic.entity;
 
 /**
  * Created by karn806 on 9/11/17.

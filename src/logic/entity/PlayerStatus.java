@@ -1,4 +1,4 @@
-package entity;
+package logic.entity;
 
 public class PlayerStatus {
     private static PlayerStatus ourInstance = new PlayerStatus();

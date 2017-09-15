@@ -1,7 +1,7 @@
 package test;
 
-import entity.Board;
-import entity.PlayerStatus;
+import logic.entity.Board;
+import logic.entity.PlayerStatus;
 import logic.BoardLogic;
 import logic.InitLogic;
 
