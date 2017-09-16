@@ -59,6 +59,11 @@ public class BoardLogic {
         return whiteCells > blackCells ? Color.WHITE : Color.BLACK;
     }
 
+    /**
+     * find the score in the board
+     * @param board
+     * @return a Pair between white and black coins
+     */
     public Pair<Integer, Integer> calculateScore(Board board){
         int whiteCells = 0;
         int blackCells = 0;

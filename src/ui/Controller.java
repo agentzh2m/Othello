@@ -3,6 +3,7 @@ package ui;
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import logic.Pair;
 import logic.entity.Board;
 import logic.entity.PlayerStatus;
 import javafx.fxml.FXML;
@@ -23,6 +24,9 @@ public class Controller {
     private AnchorPane gameBoard;
 
     @FXML
+    private Text scoreText;
+
+    @FXML
     public void initialize() {
         GridPane gridPane = new GridPane();
         InitLogic initLogic = new InitLogic();
@@ -32,7 +36,7 @@ public class Controller {
         draw(board, boardLogic, entityFactory, gridPane);
     }
 
-    public void draw(Board board, BoardLogic boardLogic, EntityFactory entityFactory, GridPane gridPane){
+    private void draw(Board board, BoardLogic boardLogic, EntityFactory entityFactory, GridPane gridPane){
         System.out.println(board);
         for (int i = 0; i < board.getNROWS(); i++) {
             for (int j = 0; j < board.getNCOLS(); j++) {
@@ -68,6 +72,8 @@ public class Controller {
                                 if (alert.getResult() == ButtonType.YES) initialize();
                                 else System.exit(0);
                             }else {
+                                Pair<Integer, Integer> score = boardLogic.calculateScore(board);
+                                scoreText.setText(String.format("White: %d | Black: %d", score.get_1(), score.get_2()));
                                 draw(board, boardLogic, entityFactory, newGridPane);
                             }
                         });
