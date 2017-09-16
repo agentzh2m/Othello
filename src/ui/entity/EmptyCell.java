@@ -1,5 +1,6 @@
 package ui.entity;
 
+import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -10,10 +11,13 @@ import logic.entity.PlayerStatus;
 
 public class EmptyCell extends UIEntity {
 
+    private Rectangle rectangle;
+
     @Override
     public Node createEntity() {
-        Rectangle rectangle = new Rectangle(50, 50, Color.WHITE);
+        rectangle = new Rectangle(50, 50, Color.WHITE);
         rectangle.setStroke(Color.BLACK);
         return rectangle;
     }
+
 }

@@ -1,8 +1,8 @@
 package ui;
 
 import javafx.concurrent.Task;
-import javafx.event.Event;
-import javafx.event.EventType;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import logic.entity.Board;
 import logic.entity.PlayerStatus;
 import javafx.fxml.FXML;
@@ -14,8 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import logic.BoardLogic;
 import logic.InitLogic;
-
-import java.awt.event.MouseEvent;
 
 public class Controller {
     @FXML
@@ -58,9 +56,20 @@ public class Controller {
                         }
                         tempCircle.setOnMouseClicked(event1 -> {
                             boardLogic.placeCoin(board, board.getCell(fj, fi));
-                            tempCircle.setOnMouseExited(null);
                             gameBoard.getChildren().remove(gridPane);
-                            draw(board, boardLogic, entityFactory, gridPane);
+                            GridPane newGridPane = new GridPane();
+                            if (boardLogic.isGameOver(board)){
+                                logic.entity.Color winner = boardLogic.whoWin(board);
+                                Alert alert = new Alert(Alert.AlertType.WARNING,
+                                        "The Game has ended with " + winner + " winning do" +
+                                                " you want to restart the game?",
+                                        ButtonType.YES, ButtonType.NO);
+                                alert.showAndWait();
+                                if (alert.getResult() == ButtonType.YES) initialize();
+                                else System.exit(0);
+                            }else {
+                                draw(board, boardLogic, entityFactory, newGridPane);
+                            }
                         });
                         tempCircle.setOnMouseExited(event1 -> {
                             gridPane.getChildren().remove(tempCircle);
@@ -68,7 +77,7 @@ public class Controller {
                                 @Override
                                 protected Void call() throws Exception {
                                     try {
-                                        Thread.sleep(110);
+                                        Thread.sleep(250);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
