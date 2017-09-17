@@ -27,14 +27,24 @@ public class Main extends JFrame{
     int nRow = board.getNROWS();
     int dimension = nCol*nRow;
 
-    JPanel p = new JPanel();
+//    JPanel p = new JPanel();
+    private final JPanel p = new JPanel(new BorderLayout(3, 3));
     CoinButton buttons[] = new CoinButton[dimension+1];
+
 
     public class CoinButton extends JButton implements ActionListener{
         ImageIcon B,W;
 
         int x;
         int y;
+
+        public int getIX() {
+            return x;
+        }
+
+        public int getIY() {
+            return y;
+        }
 
         public void setX(int x) {
             this.x = x;
@@ -44,13 +54,6 @@ public class Main extends JFrame{
             this.y = y;
         }
 
-        byte value=0;
-      /*
-      0:nothing
-      1: black
-      2: white
-      */
-
         public CoinButton(){
             B = new ImageIcon(this.getClass().getResource("/images/b.png"));
             W = new ImageIcon(this.getClass().getResource("/images/w.png"));
@@ -59,7 +62,19 @@ public class Main extends JFrame{
 
         public void refresh() {
             for (int i = 1; i <= 64; i++) {
-
+                int rx = buttons[i].getIX();
+                int ry = buttons[i].getIY();
+                System.out.println(rx + " " + ry);
+                Cell cell = board.getCell(rx,ry);
+                if (cell.getCoin()!=null){
+                    if (cell.getCoin().getColor().equals(entity.Color.BLACK)){
+                        buttons[i].setIcon(B);
+                    } else if (cell.getCoin().getColor().equals(entity.Color.WHITE)) {
+                        buttons[i].setIcon(W);
+                    }
+                } else {
+                    buttons[i].setIcon(null);
+                }
             }
         }
 
@@ -69,31 +84,16 @@ public class Main extends JFrame{
             System.out.println(x + " , " + y);
             Cell cell = board.getCell(x,y);
             if (boardLogic.isValidMove(board, cell)){
-//                cell.getCoin().flip();
                 boardLogic.placeCoin(board, cell);
-//                if (playerStatus.getTurn().equals(entity.Color.WHITE)){
-//                    setIcon(W);
-//                } else {
-//                    setIcon(B);
-//                }
+                System.out.println(board);
+                refresh();
             } else {
                 setIcon(null);
             }
-//            value++;
-//            value%=3;
-//            switch(value){
-//                case 0:
-//                    setIcon(null);
-//                    break;
-//                case 1:
-//                    setIcon(W);
-//                    break;
-//                case 2:
-//                    setIcon(B);
-//                    break;
-//            }
         }
     }
+
+    ///////////////////////
 
 
     public static void main(String args[]){
@@ -129,17 +129,21 @@ public class Main extends JFrame{
     }
 
     public void initializeBoardUI() {
+
+        JToolBar menu = new JToolBar();
+        menu.add(new JButton("Reset"));
+
         ImageIcon B = new ImageIcon(this.getClass().getResource("/images/b.png"));
         ImageIcon W = new ImageIcon(this.getClass().getResource("/images/w.png"));
 
-        int x = 0;
-        int y = 0;
+        int ix = 0;
+        int iy = 0;
 
         for(int i = 1; i <= dimension; i++){
             buttons[i] = new CoinButton();
-            buttons[i].setX(x);
-            buttons[i].setY(y);
-            Cell cell = board.getCell(x,y);
+            buttons[i].setX(iy);
+            buttons[i].setY(ix);
+            Cell cell = board.getCell(ix,iy);
             if (cell.getCoin()!=null){
                 // true - black
                 // false - white
@@ -150,8 +154,8 @@ public class Main extends JFrame{
                 }
             }
             p.add(buttons[i]);
-            x = newRow(i,x);
-            y = newCol(i,y);
+            ix = newRow(i,ix);
+            iy = newCol(i,iy);
 
         }
         add(p);
