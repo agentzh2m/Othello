@@ -1,8 +1,6 @@
 package ui;
 
 import entity.Board;
-import logic.BoardLogic;
-import logic.InitLogic;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +10,10 @@ import java.awt.event.ActionListener;
  * Created by karn806 on 9/17/17.
  */
 public class CoinButton extends JButton implements ActionListener {
+
+//    Main main;
+//    Board board = main.getBoard();
+
     ImageIcon B,W;
 
     int x;
@@ -40,6 +42,8 @@ public class CoinButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+//        System.out.println(board.getCell(3,3).getCoin().getColor());
 
         System.out.println(x + " , " + y);
         value++;
