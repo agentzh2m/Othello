@@ -1,6 +1,7 @@
 package ui;
 
 import entity.Board;
+import entity.Cell;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,10 +15,9 @@ import java.awt.*;
 
 public class Main extends JFrame{
 
-    BoardLogic boardLogic = new BoardLogic();
     InitLogic initLogic = new InitLogic();
-
     Board board = initLogic.generateBoard();
+
     int nCol = board.getNCOLS();
     int nRow = board.getNROWS();
     int dimension = nCol*nRow;
@@ -63,6 +63,10 @@ public class Main extends JFrame{
             buttons[i].setX(x);
             buttons[i].setY(y);
             p.add(buttons[i]);
+
+            Cell cell = new Cell();
+            board.setCell(x,y,cell);
+
             x = newRow(i,x);
             y = newCol(i,y);
 

@@ -33,8 +33,8 @@ public class CoinButton extends JButton implements ActionListener {
       */
 
     public CoinButton(){
-        B = new ImageIcon(this.getClass().getResource("b.png"));
-        W = new ImageIcon(this.getClass().getResource("w.png"));
+        B = new ImageIcon(this.getClass().getResource("/images/b.png"));
+        W = new ImageIcon(this.getClass().getResource("/images/w.png"));
         this.addActionListener(this);
     }
 
