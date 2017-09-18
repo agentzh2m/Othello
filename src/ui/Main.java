@@ -1,17 +1,11 @@
 package ui;
 
 import entity.*;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import logic.BoardLogic;
 import logic.InitLogic;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,19 +14,16 @@ public class Main extends JFrame{
 
     BoardLogic boardLogic = new BoardLogic();
     InitLogic initLogic = new InitLogic();
-    private Board board = initLogic.generateBoard();
-    private PlayerStatus playerStatus;
+    Board board = initLogic.generateBoard();
 
-    int nCol = board.getNCOLS();
-    int nRow = board.getNROWS();
-    int dimension = nCol*nRow;
-
-//    JPanel p = new JPanel();
-    private final JPanel p = new JPanel(new BorderLayout(3, 3));
-    CoinButton buttons[] = new CoinButton[dimension+1];
-
+    JPanel p = new JPanel();
+    JPanel menuBar = new JPanel();
+    JPanel fullPanel = new JPanel();
+    CoinButton buttons[] = new CoinButton[65];
+    JButton resetBtn = new JButton("Reset");
 
     public class CoinButton extends JButton implements ActionListener{
+
         ImageIcon B,W;
 
         int x;
@@ -128,10 +119,14 @@ public class Main extends JFrame{
         return y;
     }
 
-    public void initializeBoardUI() {
+    public void initializeBoardUI(Board board) {
 
-        JToolBar menu = new JToolBar();
-        menu.add(new JButton("Reset"));
+        int nCol = board.getNCOLS();
+        int nRow = board.getNROWS();
+        int dimension = nCol*nRow;
+
+
+        menuBar.add(resetBtn);
 
         ImageIcon B = new ImageIcon(this.getClass().getResource("/images/b.png"));
         ImageIcon W = new ImageIcon(this.getClass().getResource("/images/w.png"));
@@ -158,16 +153,21 @@ public class Main extends JFrame{
             iy = newCol(i,iy);
 
         }
-        add(p);
+//        getContentPane().add(p);
+        fullPanel.add(menuBar);
+        fullPanel.add(p);
+        add(fullPanel);
     }
 
     public Main(){
         super("Othello");
-        setSize(550,550);
+        setSize(650,600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        p.setLayout(new GridLayout(nRow,nCol));
+        p.setSize(550,550);
+        p.setLayout(new GridLayout(8,8));
 
-        initializeBoardUI();
+        initializeBoardUI(board);
+
 
         setVisible(true);
     }

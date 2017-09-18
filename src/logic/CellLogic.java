@@ -95,6 +95,7 @@ public class CellLogic {
             curX--;
             curY--;
         }
+//        System.out.println("left up" + resultCell);
         //check diag right down
         curX = cell.getX() + 1;
         curY = cell.getY() + 1;
@@ -103,6 +104,7 @@ public class CellLogic {
             curX++;
             curY++;
         }
+//        System.out.println("right down" + resultCell);
         //checking diag left down
         curX = cell.getX() - 1;
         curY = cell.getY() + 1;
@@ -111,14 +113,16 @@ public class CellLogic {
             curX--;
             curY++;
         }
+//        System.out.println("left down" + resultCell);
         //checking diag right up
-        curX = cell.getX() - 1;
-        curY = cell.getY() + 1;
-        while (curX >= 0 && curY < board.getNROWS()) {
+        curX = cell.getX() + 1;
+        curY = cell.getY() - 1;
+        while (curX < board.getNCOLS() && curY >= 0) {
             if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
-            curX--;
-            curY++;
+            curX++;
+            curY--;
         }
+
 
         return resultCell;
     }
