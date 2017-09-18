@@ -1,13 +1,8 @@
-package ui.entity;
+package fxui.entity;
 
-import javafx.concurrent.Task;
 import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import logic.entity.Board;
-import logic.entity.PlayerStatus;
 
 public class EmptyCell extends UIEntity {
 

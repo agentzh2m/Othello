@@ -1,10 +1,8 @@
-package ui.entity;
+package fxui.entity;
 
 import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import logic.entity.Board;
 
 public class BlackCoin extends UIEntity {
     @Override

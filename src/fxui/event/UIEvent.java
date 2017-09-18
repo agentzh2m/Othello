@@ -1,4 +1,4 @@
-package ui.event;
+package fxui.event;
 
 import javafx.event.Event;
 import logic.BoardLogic;

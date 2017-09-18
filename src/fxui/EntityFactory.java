@@ -1,8 +1,7 @@
-package ui;
+package fxui;
 
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import ui.entity.*;
+import fxui.entity.*;
 
 import java.util.HashMap;
 import java.util.Map;

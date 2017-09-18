@@ -1,4 +1,4 @@
-package ui.entity;
+package fxui.entity;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;

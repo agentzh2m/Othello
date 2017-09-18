@@ -1,4 +1,4 @@
-package ui.entity;
+package fxui.entity;
 
 import javafx.scene.Node;
 import logic.BoardLogic;
