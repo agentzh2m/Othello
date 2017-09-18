@@ -168,7 +168,6 @@ public class Main extends JFrame{
 
         initializeBoardUI(board);
 
-
         setVisible(true);
     }
 }
