@@ -122,7 +122,6 @@ public class CellLogic {
             curX++;
             curY--;
         }
-//        System.out.println("right up" + resultCell);
         return resultCell;
     }
 
