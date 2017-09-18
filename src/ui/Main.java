@@ -64,7 +64,7 @@ public class Main extends JFrame{
             for (int i = 1; i <= 64; i++) {
                 int rx = buttons[i].getIX();
                 int ry = buttons[i].getIY();
-                System.out.println(rx + " " + ry);
+//                System.out.println(rx + " " + ry);
                 Cell cell = board.getCell(rx,ry);
                 if (cell.getCoin()!=null){
                     if (cell.getCoin().getColor().equals(entity.Color.BLACK)){
@@ -81,7 +81,7 @@ public class Main extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            System.out.println(x + " , " + y);
+//            System.out.println(x + " , " + y);
             Cell cell = board.getCell(x,y);
             if (boardLogic.isValidMove(board, cell)){
                 boardLogic.placeCoin(board, cell);
