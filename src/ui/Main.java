@@ -8,8 +8,6 @@ import logic.entity.Color;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class Main extends JFrame {
@@ -23,68 +21,6 @@ public class Main extends JFrame {
     JPanel fullPanel = new JPanel();
     CoinButton buttons[] = new CoinButton[65];
     JButton resetBtn = new JButton("Reset");
-
-    public class CoinButton extends JButton implements ActionListener {
-
-        ImageIcon B, W;
-
-        int x;
-        int y;
-
-        public int getIX() {
-            return x;
-        }
-
-        public int getIY() {
-            return y;
-        }
-
-        public void setX(int x) {
-            this.x = x;
-        }
-
-        public void setY(int y) {
-            this.y = y;
-        }
-
-        public CoinButton() {
-            B = new ImageIcon(this.getClass().getResource("/images/b.png"));
-            W = new ImageIcon(this.getClass().getResource("/images/w.png"));
-            this.addActionListener(this);
-        }
-
-        public void refresh() {
-            for (int i = 1; i <= 64; i++) {
-                int rx = buttons[i].getIX();
-                int ry = buttons[i].getIY();
-//                System.out.println(rx + " " + ry);
-                Cell cell = board.getCell(rx, ry);
-                if (cell.getCoin() != null) {
-                    if (cell.getCoin().getColor().equals(Color.BLACK)) {
-                        buttons[i].setIcon(B);
-                    } else if (cell.getCoin().getColor().equals(Color.WHITE)) {
-                        buttons[i].setIcon(W);
-                    }
-                } else {
-                    buttons[i].setIcon(null);
-                }
-            }
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-//            System.out.println(x + " , " + y);
-            Cell cell = board.getCell(x, y);
-            if (boardLogic.isValidMove(board, cell)) {
-                boardLogic.placeCoin(board, cell);
-                System.out.println(board);
-                refresh();
-            } else {
-                setIcon(null);
-            }
-        }
-    }
 
     ///////////////////////
 
@@ -129,14 +65,14 @@ public class Main extends JFrame {
 
         menuBar.add(resetBtn);
 
-        ImageIcon B = new ImageIcon(this.getClass().getResource("/images/b.png"));
-        ImageIcon W = new ImageIcon(this.getClass().getResource("/images/w.png"));
+        ImageIcon B = new ImageIcon(this.getClass().getResource("b.png"));
+        ImageIcon W = new ImageIcon(this.getClass().getResource("w.png"));
 
         int ix = 0;
         int iy = 0;
 
         for (int i = 1; i <= dimension; i++) {
-            buttons[i] = new CoinButton();
+            buttons[i] = new CoinButton(this);
             buttons[i].setX(iy);
             buttons[i].setY(ix);
             Cell cell = board.getCell(ix, iy);
