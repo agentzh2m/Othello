@@ -66,7 +66,7 @@ public class Main extends JFrame {
         menuBar.add(resetBtn);
 
         ImageIcon B = new ImageIcon(this.getClass().getResource("b.png"));
-        ImageIcon W = new ImageIcon(this.getClass().getResource("w.png"));
+        ImageIcon W = new ImageIcon(this.getClass().getResource("w.png"));g
 
         int ix = 0;
         int iy = 0;
