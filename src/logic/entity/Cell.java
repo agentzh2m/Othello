@@ -40,8 +40,8 @@ public class Cell {
     @Override
     public String toString() {
         String coordinate = String.format("(%d, %d)", x, y);
-        if(coin == null) return " ";
-        if(coin.color.equals(Color.WHITE)) return "W";
+        if(coin == Coin.BLANK) return " ";
+        else if(coin == Coin.WHITE) return "W";
         return "B";
     }
 }

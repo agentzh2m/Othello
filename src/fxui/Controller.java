@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import logic.Pair;
 import logic.entity.Board;
+import logic.entity.Coin;
 import logic.entity.PlayerStatus;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
@@ -48,8 +49,8 @@ public class Controller {
 
     private void draw(Board board, BoardLogic boardLogic, EntityFactory entityFactory, GridPane gridPane){
         System.out.println(board);
-        for (int i = 0; i < board.getNROWS(); i++) {
-            for (int j = 0; j < board.getNCOLS(); j++) {
+        for (int i = 0; i < board.getDIM(); i++) {
+            for (int j = 0; j < board.getDIM(); j++) {
                 Rectangle rectangle = (Rectangle) entityFactory.getEnity("empty-cell").createEntity();
                 Circle whiteCircle = (Circle) entityFactory.getEnity("white-coin").createEntity();
                 Circle blackCircle = (Circle) entityFactory.getEnity("black-coin").createEntity();
@@ -60,7 +61,7 @@ public class Controller {
                         gridPane.getChildren().remove(rectangle);
                         Circle tempCircle = new Circle(0,0,25);
                         tempCircle.setOpacity(0.25);
-                        if (PlayerStatus.getInstance().getTurn().equals(logic.entity.Color.WHITE)) {
+                        if (PlayerStatus.getInstance().getTurn().equals(Coin.WHITE)) {
                             tempCircle.setFill(Color.WHITE);
                             tempCircle.setStroke(Color.BLACK);
                         }
@@ -73,7 +74,7 @@ public class Controller {
                             gameBoard.getChildren().remove(gridPane);
                             GridPane newGridPane = new GridPane();
                             if (boardLogic.isGameOver(board)){
-                                logic.entity.Color winner = boardLogic.whoWin(board);
+                                Coin winner = boardLogic.whoWin(board);
                                 Alert alert = new Alert(Alert.AlertType.WARNING,
                                         "The Game has ended with " + winner + " winning do" +
                                                 " you want to restart the game?",
@@ -109,8 +110,8 @@ public class Controller {
                     }
 
                 });
-                if (board.getCell(j,i).getCoin() == null) gridPane.add(rectangle, j, i);
-                else if (board.getCell(j,i).getCoin().getColor().equals(logic.entity.Color.BLACK)) gridPane.add(blackCircle, j, i);
+                if (board.getCell(j,i).getCoin() == Coin.BLANK) gridPane.add(rectangle, j, i);
+                else if (board.getCell(j,i).getCoin() == Coin.BLACK) gridPane.add(blackCircle, j, i);
                 else gridPane.add(whiteCircle, j, i);
             }
         }

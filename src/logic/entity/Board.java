@@ -9,17 +9,12 @@ import java.util.List;
  */
 public class Board {
 
-    private final int NROWS = 8;
-    private final int NCOLS = 8;
+    private final int DIM = 8;
 
-    private Cell[][] board = new Cell[NROWS][NCOLS];
+    private Cell[][] board = new Cell[DIM][DIM];
 
-    public int getNROWS() {
-        return NROWS;
-    }
-
-    public int getNCOLS() {
-        return NCOLS;
+    public int getDIM() {
+        return DIM;
     }
 
     public Cell[][] getBoard() {
@@ -40,7 +35,7 @@ public class Board {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         List<Integer> nums = new ArrayList<>();
-        for (int i = 0; i < NROWS; i++) {
+        for (int i = 0; i < DIM; i++) {
             nums.add(i);
         }
         stringBuilder.append(" " + nums);

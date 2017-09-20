@@ -3,7 +3,6 @@ package logic;
 import logic.entity.Board;
 import logic.entity.Cell;
 import logic.entity.Coin;
-import logic.entity.Color;
 
 public class InitLogic {
     private final int CENTER_X = 3;
@@ -15,10 +14,10 @@ public class InitLogic {
                 board.setCell(i,j, new Cell());
             }
         }
-        board.getCell(CENTER_X, CENTER_Y).setCoin(new Coin(Color.WHITE));
-        board.getCell(CENTER_X+1, CENTER_Y).setCoin(new Coin(Color.BLACK));
-        board.getCell(CENTER_X, CENTER_Y+1).setCoin(new Coin(Color.BLACK));
-        board.getCell(CENTER_X+1, CENTER_Y+1).setCoin(new Coin(Color.WHITE));
+        board.getCell(CENTER_X, CENTER_Y).setCoin(new Coin(Coin.WHITE));
+        board.getCell(CENTER_X+1, CENTER_Y).setCoin(new Coin(Coin.BLACK));
+        board.getCell(CENTER_X, CENTER_Y+1).setCoin(new Coin(Coin.BLACK));
+        board.getCell(CENTER_X+1, CENTER_Y+1).setCoin(new Coin(Coin.WHITE));
         return board;
     }
 

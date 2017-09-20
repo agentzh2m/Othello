@@ -1,7 +1,7 @@
 package ui;
 
 import logic.entity.Cell;
-import logic.entity.Color;
+import logic.entity.Coin;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -48,9 +48,9 @@ public class CoinButton extends JButton implements ActionListener {
 //                System.out.println(rx + " " + ry);
             Cell cell = main.board.getCell(rx, ry);
             if (cell.getCoin() != null) {
-                if (cell.getCoin().getColor().equals(Color.BLACK)) {
+                if (cell.getCoin() == Coin.BLACK) {
                     main.buttons[i].setIcon(B);
-                } else if (cell.getCoin().getColor().equals(Color.WHITE)) {
+                } else if (cell.getCoin() == Coin.WHITE) {
                     main.buttons[i].setIcon(W);
                 }
             } else {

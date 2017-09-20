@@ -10,14 +10,14 @@ public class PlayerStatus {
     /**
      * If true player A turn if false player B turn
      */
-    private Color turn = Color.WHITE;
+    private Coin turn = Coin.WHITE;
 
     public void switchTurn() {
-        if (turn.equals(Color.BLACK)) turn = Color.WHITE;
-        else turn = Color.BLACK;
+        if (turn.equals(Coin.BLACK)) turn = Coin.WHITE;
+        else turn = Coin.BLACK;
     }
 
-    public Color getTurn() {
+    public Coin getTurn() {
         return turn;
     }
 

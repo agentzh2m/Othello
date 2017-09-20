@@ -4,7 +4,7 @@ package ui;
 import logic.entity.*;
 import logic.BoardLogic;
 import logic.InitLogic;
-import logic.entity.Color;
+import logic.entity.Coin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ public class Main extends JFrame {
     JPanel p = new JPanel();
     JPanel menuBar = new JPanel();
     JPanel fullPanel = new JPanel();
-    CoinButton buttons[] = new CoinButton[65];
+    CoinButton buttons[] = new CoinButton[board.getDIM() * board.getDIM() + 1];
     JButton resetBtn = new JButton("Reset");
 
     ///////////////////////
@@ -30,9 +30,9 @@ public class Main extends JFrame {
     }
 
     public boolean checkColor(Cell cell) {
-        if (cell.getCoin().getColor().equals(Color.BLACK)) {
+        if (cell.getCoin() == Coin.BLACK) {
             return true;
-        } else if (cell.getCoin().getColor().equals(Color.WHITE)) {
+        } else if (cell.getCoin() == Coin.WHITE) {
             return false;
         }
         return false;
@@ -58,15 +58,13 @@ public class Main extends JFrame {
 
     public void initializeBoardUI(Board board) {
 
-        int nCol = board.getNCOLS();
-        int nRow = board.getNROWS();
-        int dimension = nCol * nRow;
+        int dimension = board.getDIM();
 
 
         menuBar.add(resetBtn);
 
         ImageIcon B = new ImageIcon(this.getClass().getResource("b.png"));
-        ImageIcon W = new ImageIcon(this.getClass().getResource("w.png"));g
+        ImageIcon W = new ImageIcon(this.getClass().getResource("w.png"));
 
         int ix = 0;
         int iy = 0;

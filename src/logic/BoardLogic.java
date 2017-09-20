@@ -17,7 +17,7 @@ public class BoardLogic {
 
     public void placeCoin(Board board, Cell cell){
         if(isValidMove(board, cell)){
-            Color turn = PlayerStatus.getInstance().getTurn();
+            Coin turn = PlayerStatus.getInstance().getTurn();
             //flip all the flippable
             cell.setCoin(new Coin(turn));
             List<Cell> flippableCells = cellLogic.getAllIntersect(board, cell);
@@ -39,8 +39,8 @@ public class BoardLogic {
      */
     public boolean isGameOver(Board board){
         int blankCells = 0;
-        for (int i = 0; i < board.getNROWS(); i++) {
-            for (int j = 0; j < board.getNCOLS(); j++) {
+        for (int i = 0; i < board.getDIM(); i++) {
+            for (int j = 0; j < board.getDIM(); j++) {
                 if (board.getCell(j,i).getCoin() == null) blankCells++;
             }
         }
@@ -52,11 +52,11 @@ public class BoardLogic {
      * @param board
      * @return the color that is the winner
      */
-    public Color whoWin(Board board){
+    public Coin whoWin(Board board){
         Pair<Integer, Integer> pair = calculateScore(board);
         int whiteCells = pair.get_1();
         int blackCells = pair.get_2();
-        return whiteCells > blackCells ? Color.WHITE : Color.BLACK;
+        return whiteCells > blackCells ? Coin.WHITE : Coin.BLACK;
     }
 
     /**
@@ -67,10 +67,10 @@ public class BoardLogic {
     public Pair<Integer, Integer> calculateScore(Board board){
         int whiteCells = 0;
         int blackCells = 0;
-        for (int i = 0; i < board.getNROWS(); i++) {
-            for (int j = 0; j < board.getNCOLS(); j++) {
+        for (int i = 0; i < board.getDIM(); i++) {
+            for (int j = 0; j < board.getDIM(); j++) {
                 if (board.getCell(j,i).getCoin() != null){
-                    if (board.getCell(j,i).getCoin().getColor().equals(Color.WHITE)) whiteCells++;
+                    if (board.getCell(j,i).getCoin().getColor().equals(Coin.WHITE)) whiteCells++;
                     else blackCells++;
                 }
             }

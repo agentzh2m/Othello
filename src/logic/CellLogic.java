@@ -29,7 +29,7 @@ public class CellLogic {
      */
     private boolean matchingLogic(List<Cell> resultCell, List<Cell> flippableCell, int x, int y, Board board){
         //same color
-        Color currentTurn = PlayerStatus.getInstance().getTurn();
+        Coin currentTurn = PlayerStatus.getInstance().getTurn();
         Coin coin = board.getCell(x, y).getCoin();
         if(coin == null){
             flippableCell.clear();
@@ -52,7 +52,7 @@ public class CellLogic {
         //checking right
         List<Cell> resultCell = new ArrayList<>();
         List<Cell> flippableCell = new ArrayList<>();
-        for (int i = cell.getX()+1; i < board.getNCOLS(); i++) {
+        for (int i = cell.getX()+1; i < board.getDIM(); i++) {
             if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
         }
         //checking left
@@ -70,7 +70,7 @@ public class CellLogic {
         List<Cell> resultCell = new ArrayList<>();
         List<Cell> flippableCell = new ArrayList<>();
         //checking up
-        for (int i = cell.getY()+1; i < board.getNROWS(); i++) {
+        for (int i = cell.getY()+1; i < board.getDIM(); i++) {
             if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
         }
         //checking down
@@ -99,7 +99,7 @@ public class CellLogic {
         //check diag right down
         curX = cell.getX() + 1;
         curY = cell.getY() + 1;
-        while (curX < board.getNCOLS() && curY < board.getNROWS()) {
+        while (curX < board.getDIM() && curY < board.getDIM()) {
             if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
             curX++;
             curY++;
@@ -108,7 +108,7 @@ public class CellLogic {
         //checking diag left down
         curX = cell.getX() - 1;
         curY = cell.getY() + 1;
-        while (curX >= 0 && curY < board.getNROWS()) {
+        while (curX >= 0 && curY < board.getDIM()) {
             if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
             curX--;
             curY++;
@@ -117,7 +117,7 @@ public class CellLogic {
         //checking diag right up
         curX = cell.getX() + 1;
         curY = cell.getY() - 1;
-        while (curX < board.getNCOLS() && curY >= 0) {
+        while (curX < board.getDIM() && curY >= 0) {
             if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
             curX++;
             curY--;
