@@ -11,7 +11,7 @@ public class Cell {
     private int x;
     private int y;
 
-    Coin coin;
+    private Coin coin = Coin.BLANK;
 
     public Coin getCoin() {
         return coin;
@@ -35,6 +35,11 @@ public class Cell {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void flip() {
+        if (coin == Coin.BLACK) coin = Coin.WHITE;
+        else coin = Coin.BLACK;
     }
 
     @Override

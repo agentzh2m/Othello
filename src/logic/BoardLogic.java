@@ -19,11 +19,11 @@ public class BoardLogic {
         if(isValidMove(board, cell)){
             Coin turn = PlayerStatus.getInstance().getTurn();
             //flip all the flippable
-            cell.setCoin(new Coin(turn));
+            cell.setCoin(turn);
             List<Cell> flippableCells = cellLogic.getAllIntersect(board, cell);
             for(Cell fCells: flippableCells){
                 Cell currentCell = board.getCell(fCells.getX(), fCells.getY());
-                currentCell.getCoin().flip();
+                currentCell.flip();
                 board.setCell(fCells.getX(), fCells.getY(), currentCell);
                 System.out.println();
             }
@@ -41,7 +41,7 @@ public class BoardLogic {
         int blankCells = 0;
         for (int i = 0; i < board.getDIM(); i++) {
             for (int j = 0; j < board.getDIM(); j++) {
-                if (board.getCell(j,i).getCoin() == null) blankCells++;
+                if (board.getCell(j,i).getCoin() == Coin.BLANK) blankCells++;
             }
         }
         return blankCells == 0;
@@ -69,8 +69,8 @@ public class BoardLogic {
         int blackCells = 0;
         for (int i = 0; i < board.getDIM(); i++) {
             for (int j = 0; j < board.getDIM(); j++) {
-                if (board.getCell(j,i).getCoin() != null){
-                    if (board.getCell(j,i).getCoin().getColor().equals(Coin.WHITE)) whiteCells++;
+                if (board.getCell(j,i).getCoin() != Coin.BLANK){
+                    if (board.getCell(j,i).getCoin() == Coin.WHITE) whiteCells++;
                     else blackCells++;
                 }
             }

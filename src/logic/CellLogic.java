@@ -31,10 +31,10 @@ public class CellLogic {
         //same color
         Coin currentTurn = PlayerStatus.getInstance().getTurn();
         Coin coin = board.getCell(x, y).getCoin();
-        if(coin == null){
+        if(coin == Coin.BLANK){
             flippableCell.clear();
             return true;
-        }else if (!coin.getColor().equals(currentTurn)){
+        }else if (coin != currentTurn){
             flippableCell.add(board.getCell(x,y));
             return false;
         }else{
