@@ -11,6 +11,7 @@
          <children>
             <Text fx:id="turnText" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turn: N/A" />
             <Text fx:id="scoreText" layoutX="331.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="White: 2 | Black: 2" />
+            <Button layoutX="96.0" layoutY="16.0" mnemonicParsing="false" onAction="#onReset" text="Reset" />
          </children></AnchorPane>
     <AnchorPane fx:id="gameBoard" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
   </items>

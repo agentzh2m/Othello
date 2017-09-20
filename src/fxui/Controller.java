@@ -2,6 +2,7 @@ package fxui;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import logic.Pair;
 import logic.entity.Board;
@@ -27,6 +28,10 @@ public class Controller {
     private Text scoreText;
 
     @FXML
+    private Button resetButton;
+
+
+    @FXML
     public void initialize() {
         GridPane gridPane = new GridPane();
         InitLogic initLogic = new InitLogic();
@@ -34,6 +39,11 @@ public class Controller {
         Board board = initLogic.generateBoard();
         EntityFactory entityFactory = new EntityFactory();
         draw(board, boardLogic, entityFactory, gridPane);
+    }
+
+    @FXML
+    public void onReset() {
+        initialize();
     }
 
     private void draw(Board board, BoardLogic boardLogic, EntityFactory entityFactory, GridPane gridPane){
