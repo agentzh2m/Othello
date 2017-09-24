@@ -86,23 +86,6 @@ public class Controller extends JFrame{
         InitLogic initLogic = new InitLogic();
         Board board = initLogic.generateBoard();
 
-        JButton k = new JButton("hi");
-
-//        JPanel p = viewBoard.p;
-//        JPanel menuBar = viewBoard.menuBar;
-//        JPanel fullPanel = viewBoard.fullPanel;
-//        JButton resetBtn = viewBoard.resetBtn;
-//        CoinButton[] buttons = viewBoard.buttons;
-
-        p.setSize(550, 550);
-        p.setLayout(new GridLayout(8, 8));
-
-//        p = new JPanel();
-//        menuBar = new JPanel();
-//        fullPanel = new JPanel();
-//        resetBtn = new JButton();
-//        buttons = new CoinButton[8 * 8 + 1];
-
         menuBar.add(resetBtn);
 
 
@@ -141,7 +124,7 @@ public class Controller extends JFrame{
         int iy = 0;
 
         for (int i = 1; i <= 64; i++) {
-            buttons[i] = new CoinButton();
+            buttons[i] = new CoinButton(board);
             buttons[i].setX(iy);
             buttons[i].setY(ix);
             Cell cell = board.getCell(ix, iy);

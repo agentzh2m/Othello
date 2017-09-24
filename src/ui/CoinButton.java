@@ -19,9 +19,10 @@ public class CoinButton extends JButton implements ActionListener {
     ViewBoard viewBoard;
     Board board;
 
-    public void setBoard(Board board) {
+    public CoinButton(Board board) {
         this.board = board;
     }
+
 
     int x;
     int y;
