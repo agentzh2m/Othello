@@ -1,6 +1,8 @@
 package ui;
 
 import com.sun.tools.internal.ws.processor.model.Model;
+import fxui.EntityFactory;
+import javafx.scene.layout.GridPane;
 import logic.BoardLogic;
 import logic.InitLogic;
 import logic.entity.Board;
@@ -8,26 +10,48 @@ import logic.entity.Cell;
 import logic.entity.Coin;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by karn806 on 9/18/17.
  */
-public class Controller extends JFrame {
+public class Controller extends JFrame{
 
-    BoardLogic boardLogic = new BoardLogic();
-    InitLogic initLogic = new InitLogic();
-    Board board = initLogic.generateBoard();
-
+    private final JPanel p;
+    private final JPanel menuBar;
+    private final JPanel fullPanel;
+    private final CoinButton[] buttons;
+    private final JButton resetBtn;
+    //    BoardLogic boardLogic = new BoardLogic();
+//    InitLogic initLogic = new InitLogic();
+//    Board board = initLogic.generateBoard();
+//
     ViewBoard viewBoard = new ViewBoard();
+//    JButton resetBtn = viewBoard.resetBtn;
+//
+//    JPanel p;
+//
+//    JPanel menuBar = viewBoard.menuBar;
+//    JPanel fullPanel = viewBoard.fullPanel;
+//    CoinButton buttons[] = viewBoard.buttons;
+//    JButton resetBtn = viewBoard.resetBtn;
+//
+//    ImageIcon B = viewBoard.B;
+//    ImageIcon W = viewBoard.W;
 
-    JPanel p = viewBoard.p;
-    JPanel menuBar = viewBoard.menuBar;
-    JPanel fullPanel = viewBoard.fullPanel;
-    CoinButton buttons[] = viewBoard.buttons;
-    JButton resetBtn = viewBoard.resetBtn;
+    ImageIcon B = new ImageIcon(this.getClass().getResource("b.png"));
+    ImageIcon W = new ImageIcon(this.getClass().getResource("w.png"));
 
-    ImageIcon B = viewBoard.B;
-    ImageIcon W = viewBoard.W;
+    public Controller(JPanel p, JPanel menuBar, JPanel fullPanel, JButton resetBtn, CoinButton[] buttons) {
+        this.p = p;
+        this.menuBar = menuBar;
+        this.fullPanel = fullPanel;
+        this.resetBtn = resetBtn;
+        this.buttons = buttons;
+
+    }
 
 
     public boolean checkColor(Cell cell) {
@@ -59,14 +83,64 @@ public class Controller extends JFrame {
 
     public void initializeBoardUI() {
 
-        int dimension = board.getDIM();
+        InitLogic initLogic = new InitLogic();
+        Board board = initLogic.generateBoard();
+
+        JButton k = new JButton("hi");
+
+//        JPanel p = viewBoard.p;
+//        JPanel menuBar = viewBoard.menuBar;
+//        JPanel fullPanel = viewBoard.fullPanel;
+//        JButton resetBtn = viewBoard.resetBtn;
+//        CoinButton[] buttons = viewBoard.buttons;
+
+        p.setSize(550, 550);
+        p.setLayout(new GridLayout(8, 8));
+
+//        p = new JPanel();
+//        menuBar = new JPanel();
+//        fullPanel = new JPanel();
+//        resetBtn = new JButton();
+//        buttons = new CoinButton[8 * 8 + 1];
 
         menuBar.add(resetBtn);
+
+
+        draw(board);
+
+    }
+
+    public void refresh(Board board, CoinButton[] buttons) {
+        for (int i = 1; i <= 64; i++) {
+            int rx = buttons[i].getIX();
+            int ry = buttons[i].getIY();
+//                System.out.println(rx + " " + ry);
+            Cell cell = board.getCell(rx, ry);
+            if (cell.getCoin() != null) {
+                if (cell.getCoin() == Coin.BLACK) {
+                    buttons[i].setIcon(B);
+                } else if (cell.getCoin() == Coin.WHITE) {
+                    buttons[i].setIcon(W);
+                }
+            } else {
+                buttons[i].setIcon(null);
+            }
+        }
+    }
+
+    public void draw(Board board){
+
+        resetBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                initializeBoardUI();
+            }
+        });
 
         int ix = 0;
         int iy = 0;
 
-        for (int i = 1; i <= dimension; i++) {
+        for (int i = 1; i <= 64; i++) {
             buttons[i] = new CoinButton();
             buttons[i].setX(iy);
             buttons[i].setY(ix);
@@ -90,4 +164,5 @@ public class Controller extends JFrame {
         fullPanel.add(p);
         add(fullPanel);
     }
+
 }

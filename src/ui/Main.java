@@ -19,13 +19,15 @@ public class Main extends JFrame {
     public Main() {
         super("Othello");
 
-        Controller controller = new Controller();
-        JPanel p = controller.p;
+        JPanel p = new JPanel();
+        JPanel menuBar = new JPanel();
+        JPanel fullPanel = new JPanel();
+        JButton resetBtn = new JButton();
+        CoinButton[] buttons = new CoinButton[8 * 8 + 1];
+        Controller controller = new Controller(p, menuBar, fullPanel, resetBtn, buttons);
 
         setSize(650, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        p.setSize(550, 550);
-        p.setLayout(new GridLayout(8, 8));
 
         controller.initializeBoardUI();
 

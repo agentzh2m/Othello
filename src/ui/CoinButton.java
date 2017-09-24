@@ -1,5 +1,7 @@
 package ui;
 
+import logic.BoardLogic;
+import logic.entity.Board;
 import logic.entity.Cell;
 import logic.entity.Coin;
 
@@ -12,7 +14,14 @@ import java.awt.event.ActionListener;
  */
 public class CoinButton extends JButton implements ActionListener {
 
+    BoardLogic boardLogic = new BoardLogic();
     Controller controller;
+    ViewBoard viewBoard;
+    Board board;
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 
     int x;
     int y;
@@ -36,31 +45,17 @@ public class CoinButton extends JButton implements ActionListener {
 
 
     public void refresh() {
-        for (int i = 1; i <= 64; i++) {
-            int rx = controller.buttons[i].getIX();
-            int ry = controller.buttons[i].getIY();
-//                System.out.println(rx + " " + ry);
-            Cell cell = controller.board.getCell(rx, ry);
-            if (cell.getCoin() != null) {
-                if (cell.getCoin() == Coin.BLACK) {
-                    controller.buttons[i].setIcon(controller.B);
-                } else if (cell.getCoin() == Coin.WHITE) {
-                    controller.buttons[i].setIcon(controller.W);
-                }
-            } else {
-                controller.buttons[i].setIcon(null);
-            }
-        }
+        controller.refresh(board, viewBoard.buttons);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
 //            System.out.println(x + " , " + y);
-        Cell cell = controller.board.getCell(x, y);
-        if (controller.boardLogic.isValidMove(controller.board, cell)) {
-            controller.boardLogic.placeCoin(controller.board, cell);
-            System.out.println(controller.board);
+        Cell cell = board.getCell(x, y);
+        if (boardLogic.isValidMove(board, cell)) {
+            boardLogic.placeCoin(board, cell);
+            System.out.println(board);
             refresh();
         } else {
             setIcon(null);
