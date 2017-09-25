@@ -24,22 +24,6 @@ public class Controller extends JFrame{
     private final JPanel fullPanel;
     private final CoinButton[] buttons;
     private final JButton resetBtn;
-    //    BoardLogic boardLogic = new BoardLogic();
-//    InitLogic initLogic = new InitLogic();
-//    Board board = initLogic.generateBoard();
-//
-    ViewBoard viewBoard = new ViewBoard();
-//    JButton resetBtn = viewBoard.resetBtn;
-//
-//    JPanel p;
-//
-//    JPanel menuBar = viewBoard.menuBar;
-//    JPanel fullPanel = viewBoard.fullPanel;
-//    CoinButton buttons[] = viewBoard.buttons;
-//    JButton resetBtn = viewBoard.resetBtn;
-//
-//    ImageIcon B = viewBoard.B;
-//    ImageIcon W = viewBoard.W;
 
     ImageIcon B = new ImageIcon(this.getClass().getResource("b.png"));
     ImageIcon W = new ImageIcon(this.getClass().getResource("w.png"));
@@ -52,8 +36,7 @@ public class Controller extends JFrame{
         this.buttons = buttons;
 
     }
-
-
+    
     public boolean checkColor(Cell cell) {
         if (cell.getCoin() == Coin.BLACK) {
             return true;
@@ -85,15 +68,12 @@ public class Controller extends JFrame{
 
         InitLogic initLogic = new InitLogic();
         Board board = initLogic.generateBoard();
-
-        menuBar.add(resetBtn);
-
-
+        System.out.println(board);
         draw(board);
 
     }
 
-    public void refresh(Board board, CoinButton[] buttons) {
+    public void refresh(Board board) {
         for (int i = 1; i <= 64; i++) {
             int rx = buttons[i].getIX();
             int ry = buttons[i].getIY();
@@ -142,7 +122,7 @@ public class Controller extends JFrame{
             iy = newCol(i, iy);
 
         }
-//        getContentPane().add(p);
+        menuBar.add(resetBtn);
         fullPanel.add(menuBar);
         fullPanel.add(p);
         add(fullPanel);

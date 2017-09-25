@@ -16,7 +16,6 @@ public class CoinButton extends JButton implements ActionListener {
 
     BoardLogic boardLogic = new BoardLogic();
     Controller controller;
-    ViewBoard viewBoard;
     Board board;
 
     public CoinButton(Board board) {
@@ -46,7 +45,7 @@ public class CoinButton extends JButton implements ActionListener {
 
 
     public void refresh() {
-        controller.refresh(board, viewBoard.buttons);
+        controller.refresh(board);
     }
 
     @Override

@@ -15,8 +15,9 @@ public class Main extends JFrame {
         JPanel p = new JPanel();
         JPanel menuBar = new JPanel();
         JPanel fullPanel = new JPanel();
-        JButton resetBtn = new JButton();
+        JButton resetBtn = new JButton("Reset");
         CoinButton[] buttons = new CoinButton[8 * 8 + 1];
+
         Controller controller = new Controller(p, menuBar, fullPanel, resetBtn, buttons);
 
         p.setSize(550, 550);
