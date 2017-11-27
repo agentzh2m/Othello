@@ -39,12 +39,15 @@ public class BoardLogic {
      */
     public boolean isGameOver(Board board){
         int blankCells = 0;
+        int isValid = 0;
         for (int i = 0; i < board.getDIM(); i++) {
             for (int j = 0; j < board.getDIM(); j++) {
                 if (board.getCell(j,i).getCoin() == Coin.BLANK) blankCells++;
+                if (isValidMove(board,board.getCell(j,i))) isValid++;
             }
         }
-        return blankCells == 0;
+        System.out.println("is valid = "+isValid);
+        return blankCells == 0 | isValid == 0;
     }
 
     /**

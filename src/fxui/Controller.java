@@ -80,6 +80,10 @@ public class Controller {
                                                 " you want to restart the game?",
                                         ButtonType.YES, ButtonType.NO);
                                 alert.showAndWait();
+                                Pair<Integer, Integer> score = boardLogic.calculateScore(board);
+                                score.set_1(0);
+                                score.set_2(0);
+                                scoreText.setText(String.format("White: %d | Black: %d", score.get_1(), score.get_2()));
                                 if (alert.getResult() == ButtonType.YES) initialize();
                                 else System.exit(0);
                             }else {
