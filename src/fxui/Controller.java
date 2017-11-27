@@ -45,6 +45,7 @@ public class Controller {
     @FXML
     public void onReset() {
         initialize();
+        scoreText.setText(String.format("White: %d | Black: %d", 2, 2));
     }
 
     private void draw(Board board, BoardLogic boardLogic, EntityFactory entityFactory, GridPane gridPane){
