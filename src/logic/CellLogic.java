@@ -49,9 +49,9 @@ public class CellLogic {
      * @return all flippable cells
      */
     List<Cell> getHorizontal(Board board, Cell cell){
-        //checking right
         List<Cell> resultCell = new ArrayList<>();
         List<Cell> flippableCell = new ArrayList<>();
+        //checking right
         for (int i = cell.getX()+1; i < board.getDIM(); i++) {
             if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
         }
