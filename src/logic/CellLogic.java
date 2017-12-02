@@ -18,6 +18,27 @@ public class CellLogic {
                 && getDiag(board, cell).isEmpty());
     }
 
+
+    /**
+     * Check for the border cell.
+     * @param cell
+     * @param board
+     * @return true is the cell is border cell.
+     */
+    private boolean checkBorder(Board board, Cell cell){
+        //top left corner
+        if (cell.getX() == 0 && cell.getY() == 0){
+            return true;
+        } else if (cell.getX() == 0 && cell.getY() == board.getDIM()-1){
+            return true;
+        } else if (cell.getX() == board.getDIM()-1 && cell.getY() == 0){
+            return true;
+        } else if (cell.getX() == board.getDIM()-1 && cell.getY() == board.getDIM()-1){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * the logic share by all method
      * @param resultCell
@@ -31,13 +52,16 @@ public class CellLogic {
         //same color
         Coin currentTurn = PlayerStatus.getInstance().getTurn();
         Coin coin = board.getCell(x, y).getCoin();
-        if(coin == Coin.BLANK){
+        if (coin == Coin.BLANK){
             flippableCell.clear();
             return true;
-        }else if (coin != currentTurn){
+        } else if (coin != currentTurn){
             flippableCell.add(board.getCell(x,y));
             return false;
-        }else{
+        } else if (checkBorder(board, board.getCell(x,y))){
+            flippableCell.clear();
+            return true;
+        } else {
             resultCell.addAll(flippableCell);
             flippableCell.clear();
             return true;
@@ -59,6 +83,8 @@ public class CellLogic {
         for (int i = cell.getX()-1; i >= 0; i--) {
             if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
         }
+        System.out.println("hor-resultcell: "+resultCell);
+        System.out.println("hor-flip: "+flippableCell);
         return resultCell;
     }
 
@@ -77,6 +103,8 @@ public class CellLogic {
         for (int i = cell.getY()-1; i >= 0; i--) {
             if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
         }
+        System.out.println("ver-resultcell: "+resultCell);
+        System.out.println("ver-flip: "+flippableCell);
         return resultCell;
     }
 
@@ -122,6 +150,8 @@ public class CellLogic {
             curX++;
             curY--;
         }
+        System.out.println("diag-resultcell: "+resultCell);
+        System.out.println("diag-flip: "+flippableCell);
         return resultCell;
     }
 

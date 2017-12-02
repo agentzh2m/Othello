@@ -47,7 +47,7 @@ public class BoardLogic {
             }
         }
         System.out.println("is valid = "+isValid);
-        return blankCells == 0 | isValid == 0;
+        return isValid == 0 || blankCells == 0;
     }
 
     /**
