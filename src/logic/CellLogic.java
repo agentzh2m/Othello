@@ -21,20 +21,58 @@ public class CellLogic {
 
     /**
      * Check for the border cell.
-     * @param cell
      * @param board
-     * @return true is the cell is border cell.
+     * @param x
+     * @param y
+     * @param pos
+     * @return false if there is no blank cell next to the next coin
      */
-    private boolean checkBorder(Board board, Cell cell){
-        //top left corner
-        if (cell.getX() == 0 && cell.getY() == 0){
-            return true;
-        } else if (cell.getX() == 0 && cell.getY() == board.getDIM()-1){
-            return true;
-        } else if (cell.getX() == board.getDIM()-1 && cell.getY() == 0){
-            return true;
-        } else if (cell.getX() == board.getDIM()-1 && cell.getY() == board.getDIM()-1){
-            return true;
+    private boolean checkBorder(Board board, int x, int y, int pos){
+        int dim = board.getDIM();
+        if (x != 0 || x != dim || y != 0 || y != dim){
+            return false;
+        }
+        switch (pos) {
+            // hori right
+            case 1 :
+                if (board.getCell(x+1,y).getCoin() == Coin.BLANK) {
+                    return true;
+                }
+            // hori left
+            case 2 :
+                if (board.getCell(x-1,y).getCoin() == Coin.BLANK){
+                    return true;
+                }
+            // ver up
+            case 3 :
+                if (board.getCell(x,y-1).getCoin() == Coin.BLANK){
+                    return true;
+                }
+            // ver down
+            case 4 :
+                if (board.getCell(x,y+1).getCoin() == Coin.BLANK){
+                    return true;
+                }
+            // diag left up
+            case 5 :
+                if (board.getCell(x-1,y-1).getCoin() == Coin.BLANK){
+                    return true;
+                }
+            // diag right down
+            case 6 :
+                if (board.getCell(x+1,y+1).getCoin() == Coin.BLANK){
+                    return true;
+                }
+            // diag left down
+            case 7 :
+                if (board.getCell(x-1,y+1).getCoin() == Coin.BLANK){
+                    return true;
+                }
+            // diag right up
+            case 8 :
+                if (board.getCell(x+1,y-1).getCoin() == Coin.BLANK){
+                    return true;
+                }
         }
         return false;
     }
@@ -48,20 +86,30 @@ public class CellLogic {
      * @param board
      * @return true when the logic is resolve false is to keep running the logic
      */
-    private boolean matchingLogic(List<Cell> resultCell, List<Cell> flippableCell, int x, int y, Board board){
+    private boolean matchingLogic(List<Cell> resultCell, List<Cell> flippableCell, int x, int y, Board board, int pos){
         //same color
         Coin currentTurn = PlayerStatus.getInstance().getTurn();
         Coin coin = board.getCell(x, y).getCoin();
         if (coin == Coin.BLANK){
+            System.out.println("1");
             flippableCell.clear();
             return true;
         } else if (coin != currentTurn){
+            System.out.println("2");
             flippableCell.add(board.getCell(x,y));
             return false;
-        } else if (checkBorder(board, board.getCell(x,y))){
+        } else if (coin == currentTurn){
+            System.out.println("5");
+            resultCell.addAll(flippableCell);
+            flippableCell.clear();
+            return true;
+        }
+        else if (!checkBorder(board, x, y, pos)){
+            System.out.println("3");
             flippableCell.clear();
             return true;
         } else {
+            System.out.println("4");
             resultCell.addAll(flippableCell);
             flippableCell.clear();
             return true;
@@ -77,14 +125,14 @@ public class CellLogic {
         List<Cell> flippableCell = new ArrayList<>();
         //checking right
         for (int i = cell.getX()+1; i < board.getDIM(); i++) {
-            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
+            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board, 1)) break;
         }
         //checking left
         for (int i = cell.getX()-1; i >= 0; i--) {
-            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board)) break;
+            if(matchingLogic(resultCell, flippableCell, i, cell.getY(), board, 2)) break;
         }
-        System.out.println("hor-resultcell: "+resultCell);
-        System.out.println("hor-flip: "+flippableCell);
+//        System.out.println("hor-resultcell: "+resultCell);
+//        System.out.println("hor-flip: "+flippableCell);
         return resultCell;
     }
 
@@ -97,14 +145,14 @@ public class CellLogic {
         List<Cell> flippableCell = new ArrayList<>();
         //checking up
         for (int i = cell.getY()+1; i < board.getDIM(); i++) {
-            if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
+            if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board, 3)) break;
         }
         //checking down
         for (int i = cell.getY()-1; i >= 0; i--) {
-            if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board)) break;
+            if(matchingLogic(resultCell, flippableCell, cell.getX(), i, board, 4)) break;
         }
-        System.out.println("ver-resultcell: "+resultCell);
-        System.out.println("ver-flip: "+flippableCell);
+//        System.out.println("ver-resultcell: "+resultCell);
+//        System.out.println("ver-flip: "+flippableCell);
         return resultCell;
     }
 
@@ -119,7 +167,7 @@ public class CellLogic {
         int curX = cell.getX() - 1;
         int curY = cell.getY() - 1;
         while (curX >= 0 && curY >= 0) {
-            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
+            if (matchingLogic(resultCell, flippableCell, curX, curY, board, 5)) break;
             curX--;
             curY--;
         }
@@ -128,7 +176,7 @@ public class CellLogic {
         curX = cell.getX() + 1;
         curY = cell.getY() + 1;
         while (curX < board.getDIM() && curY < board.getDIM()) {
-            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
+            if (matchingLogic(resultCell, flippableCell, curX, curY, board, 6)) break;
             curX++;
             curY++;
         }
@@ -137,7 +185,7 @@ public class CellLogic {
         curX = cell.getX() - 1;
         curY = cell.getY() + 1;
         while (curX >= 0 && curY < board.getDIM()) {
-            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
+            if (matchingLogic(resultCell, flippableCell, curX, curY, board,7)) break;
             curX--;
             curY++;
         }
@@ -146,12 +194,13 @@ public class CellLogic {
         curX = cell.getX() + 1;
         curY = cell.getY() - 1;
         while (curX < board.getDIM() && curY >= 0) {
-            if (matchingLogic(resultCell, flippableCell, curX, curY, board)) break;
+            if (matchingLogic(resultCell, flippableCell, curX, curY, board,8)) break;
             curX++;
             curY--;
         }
-        System.out.println("diag-resultcell: "+resultCell);
-        System.out.println("diag-flip: "+flippableCell);
+//        System.out.println("diag-resultcell: "+resultCell);
+//        System.out.println("diag-flip: "+flippableCell);
+//        System.out.println("---------");
         return resultCell;
     }
 

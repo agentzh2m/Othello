@@ -92,6 +92,7 @@ public class Controller {
                                 scoreText.setText(String.format("White: %d | Black: %d", score.get_1(), score.get_2()));
                                 draw(board, boardLogic, entityFactory, newGridPane);
                             }
+
                         });
                         tempCircle.setOnMouseExited(event1 -> {
                             gridPane.getChildren().remove(tempCircle);
