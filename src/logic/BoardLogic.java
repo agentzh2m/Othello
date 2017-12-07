@@ -2,6 +2,7 @@ package logic;
 
 import logic.entity.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardLogic {
@@ -40,11 +41,17 @@ public class BoardLogic {
     public boolean isGameOver(Board board){
         int blankCells = 0;
         int isValid = 0;
+        List<Cell> blankList = new ArrayList<>();
         for (int i = 0; i < board.getDIM(); i++) {
             for (int j = 0; j < board.getDIM(); j++) {
-                if (board.getCell(j,i).getCoin() == Coin.BLANK) blankCells++;
-                if (isValidMove(board,board.getCell(j,i))) isValid++;
+                if (board.getCell(j,i).getCoin() == Coin.BLANK) {
+                    blankList.add(board.getCell(j,i));
+                    blankCells++;
+                }
             }
+        }
+        for (int i = 0; i < blankList.size(); i++) {
+            if (isValidMove(board,blankList.get(i))) isValid++;
         }
         System.out.println("is valid = "+isValid);
         return isValid == 0 || blankCells == 0;

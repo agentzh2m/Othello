@@ -17,9 +17,9 @@ public class Board {
         return DIM;
     }
 
-    public Cell[][] getBoard() {
-        return board;
-    }
+//    public Cell[][] getBoard() {
+//        return board;
+//    }
 
     public Cell getCell(int x, int y){
         return board[y][x];

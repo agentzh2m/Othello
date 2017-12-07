@@ -48,6 +48,24 @@ public class Controller {
         scoreText.setText(String.format("White: %d | Black: %d", 2, 2));
     }
 
+    @SuppressWarnings("Duplicates")
+    public void checkGameover(BoardLogic boardLogic, Board board) {
+        if (boardLogic.isGameOver(board)){
+            Coin winner = boardLogic.whoWin(board);
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "The Game has ended with " + winner + " winning do" +
+                            " you want to restart the game?",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            Pair<Integer, Integer> score = boardLogic.calculateScore(board);
+            score.set_1(2);
+            score.set_2(2);
+            scoreText.setText(String.format("White: %d | Black: %d", score.get_1(), score.get_2()));
+            if (alert.getResult() == ButtonType.YES) initialize();
+            else System.exit(0);
+        }
+    }
+
     private void draw(Board board, BoardLogic boardLogic, EntityFactory entityFactory, GridPane gridPane){
         System.out.println(board);
         for (int i = 0; i < board.getDIM(); i++) {
@@ -58,6 +76,7 @@ public class Controller {
                 final int fi = i;
                 final int fj = j;
                 rectangle.setOnMouseEntered(event -> {
+                    checkGameover(boardLogic, board);
                     if(boardLogic.isValidMove(board, board.getCell(fj,fi))){
                         gridPane.getChildren().remove(rectangle);
                         Circle tempCircle = new Circle(0,0,25);
@@ -75,18 +94,7 @@ public class Controller {
                             gameBoard.getChildren().remove(gridPane);
                             GridPane newGridPane = new GridPane();
                             if (boardLogic.isGameOver(board)){
-                                Coin winner = boardLogic.whoWin(board);
-                                Alert alert = new Alert(Alert.AlertType.WARNING,
-                                        "The Game has ended with " + winner + " winning do" +
-                                                " you want to restart the game?",
-                                        ButtonType.YES, ButtonType.NO);
-                                alert.showAndWait();
-                                Pair<Integer, Integer> score = boardLogic.calculateScore(board);
-                                score.set_1(2);
-                                score.set_2(2);
-                                scoreText.setText(String.format("White: %d | Black: %d", score.get_1(), score.get_2()));
-                                if (alert.getResult() == ButtonType.YES) initialize();
-                                else System.exit(0);
+                                checkGameover(boardLogic, board);
                             }else {
                                 Pair<Integer, Integer> score = boardLogic.calculateScore(board);
                                 scoreText.setText(String.format("White: %d | Black: %d", score.get_1(), score.get_2()));
